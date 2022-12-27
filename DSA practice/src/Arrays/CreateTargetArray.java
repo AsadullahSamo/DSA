@@ -43,12 +43,6 @@ import java.util.Arrays;
 
 public class CreateTargetArray {
 
-    public static void insert(int [] arr, int pos, int num){
-        for (int i=0; i< arr.length; i++){
-
-        }
-    }
-
     public static int[] createTargetArray(int[] nums, int[] index) {
         int k;
         int [] targetArray = new int[nums.length];

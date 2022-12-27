@@ -1,0 +1,2 @@
+first add then commit then push
+git push -u origin main --> To push
