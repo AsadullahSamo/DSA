@@ -17,5 +17,12 @@ public class Employee_Salary {
         System.out.println("$"+money+"per hour X "+hours+" hours per week = $"+salary);
         System.out.println("Gross yearly Salary is $"+salary+"*"+ 52+" = "+salary*52);
 
+//        int noOfVacationDays;
+//        System.out.print("Enter number of vacation days: ");
+//        noOfVacationDays = sc.nextInt();
+//        int remainingSalary = 8 * money;
+//        System.out.println("Gross yearly salary is $"+(salary*52)-remainingSalary);
+
+
     }
 }

@@ -56,6 +56,7 @@ public class SearchingAlgo {
 
     public static void binarySearch2D(int[][] array, int key) {
 
+        // Conversion of 2D array into 1D array
         int [] newArray = new int[array.length*array[0].length];
 
         int j=0, k=0;
@@ -68,20 +69,37 @@ public class SearchingAlgo {
             j++;
         }
 
-//        Arrays.sort(newArray);
+        // Call binary Search method of 1D array
         int arr = binarySearch(newArray, key);
+
+        // Convert 1D array back to 2D array
+        int [][] matrix = conversionIn2D(newArray, 3, 3);
+        System.out.println(Arrays.deepToString(matrix));
+        // Switch statement case checking for arr index retrieved from binarySearch()
         switch (arr){
-            case 0 -> System.out.println("Elemnt found at index [0][0]");
-            case 1 -> System.out.println("Elemnt found at index [0][1]");
-            case 2 -> System.out.println("Elemnt found at index [0][2]");
-            case 3 -> System.out.println("Elemnt found at index [1][0]");
-            case 4 -> System.out.println("Elemnt found at index [1][1]");
-            case 5 -> System.out.println("Elemnt found at index [1][2]");
-            case 6 -> System.out.println("Elemnt found at index [2][0]");
-            case 7 -> System.out.println("Elemnt found at index [2][1]");
-            case 8 -> System.out.println("Elemnt found at index [2][2]");
+            case 0 -> System.out.println("Element found at index [0][0]");
+            case 1 -> System.out.println("Element found at index [0][1]");
+            case 2 -> System.out.println("Element found at index [0][2]");
+            case 3 -> System.out.println("Element found at index [1][0]");
+            case 4 -> System.out.println("Element found at index [1][1]");
+            case 5 -> System.out.println("Element found at index [1][2]");
+            case 6 -> System.out.println("Element found at index [2][0]");
+            case 7 -> System.out.println("Element found at index [2][1]");
+            case 8 -> System.out.println("Element found at index [2][2]");
+        }    // end of switch statement
+    }       // end of binarySearch2D() method
+
+    public static int[][] conversionIn2D(int [] array, int rows, int cols){
+        int[][] matrix = new int[rows][cols];
+        int k = 0;
+        for (int i=0; i< rows; i++){
+            for (int j=0; j< cols; j++){
+                matrix[i][j] = array[k];
+                k++;
+            }
         }
-    }
+        return matrix;
+    }   // end of conversionIn2D() method
 
 
     public static void main(String[] args) {

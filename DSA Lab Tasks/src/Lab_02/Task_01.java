@@ -15,69 +15,85 @@ class ContactApp{
         System.out.println("4. Update contacts");
         System.out.println("5. Delete contacts\n");
     }
-    public void displayContacts(String [] arr){
+    public void displayContacts(String [][] arr){
         System.out.print("[");
         for(int i=0; i<arr.length; i++){
-            if(i==arr.length-1){
-                System.out.print(arr[i]);
-            } else {
-                System.out.print(arr[i] + ", ");
-            }
+                if (i!=arr.length-1){
+                    System.out.print("["+arr[i][0]+", "+arr[i][1]+"], ");
+                } else {
+                    System.out.print("["+arr[i][0]+", "+arr[i][1]+"]");
+                }
         }
         System.out.print("]\n");
     }      // end of displayContacts() method
 
-    public void searchContact(String [] arr){
-        System.out.print("Enter contact to search in list: ");
+    public void searchContact(String [][] arr){
+        System.out.print("Enter contact name or number to search in list: ");
         String contact = sc.nextLine();
         for(int i=0; i<arr.length; i++){
-            if(arr[i].equals(contact)) {
-                System.out.println("Contact found at index " + i);
+            if(arr[i][0].equals(contact) || arr[i][1].equals(contact)) {
+                System.out.println(contact+" found at index ["+i+"][0]");
                 return;
             }
         }
-        System.out.println("Contact is not present in Contacts");
+        System.out.println(contact+" is not present in Contacts");
     }      // end of searchContact() method
-    public String[] addContact(String [] arr){
-        System.out.println("Add new contact to list");
+    public String[][] addContact(String [][] arr){
+        String [][] newArray = new String[arr.length+1][2];
+        int size = newArray.length;
+        System.out.print("Enter new contact name: ");
         String contact = sc.nextLine();
-        String [] newArray = new String[arr.length+1];
-        for (int i=0; i< newArray.length-1; i++){
+        System.out.print("Enter new contact number: ");
+        String number = sc.nextLine();
+        System.out.println("Enter position(from 1 to "+size+") to add at: ");
+        size++;
+        int pos = sc.nextInt();
+        sc.nextLine();
+        for (int i=pos-1; i< newArray.length-1; i++){
+            newArray[i+1] = arr[i];
+        }
+        for (int i=0; i< pos-1; i++){
             newArray[i] = arr[i];
         }
-        newArray[newArray.length-1] = contact;
+        // because index = pos - 1;  e.g(pos = 7, then index = 6, pos = 1, index = 0)
+        newArray[pos-1][0] = contact;
+        newArray[pos-1][1] = number;
         System.out.println(contact+" added in list");
         return newArray;
     }      // end of addContact() method
 
-    public void updateContact(String [] arr){
+    public void updateContact(String [][] arr){
         System.out.println("Enter contact name to update: ");
         String oldName = sc.nextLine();
         System.out.println("Enter new name: ");
         String newName = sc.nextLine();
+        System.out.println("Enter new number: ");
+        String newNumber = sc.nextLine();
         int index = 0;
         for (int i=0; i< arr.length; i++){
-            if(arr[i].equals(oldName)){
+            if(arr[i][0].equals(oldName)){
                 index = i;
                 break;
             }
         }     // end of for loop
-        arr[index] = newName;
+        arr[index][0] = newName;
+        arr[index][1] = newNumber;
     }      // end of updateContact() method
-    public String[] deleteContact(String [] arr){
+    public String[][] deleteContact(String [][] arr){
         System.out.print("Enter contact name to delete: ");
         String contact = sc.nextLine();
         int size = arr.length;
-        String [] newArray = new String[arr.length-1];
-        if(arr[size-1].equals(contact)){
-            for (int i=0; i< newArray.length; i++){
-                newArray[i] = arr[i];
+        String [][] newArray = new String[arr.length-1][2];
+        if(arr[size-1][0].equals(contact)){
+            for (int i=0; i< arr.length-1; i++){
+                newArray[i][0] = arr[i][0];
+                newArray[i][1] = arr[i][1];
             }
         } else {
 
             int index = 0;
             for (int i = 0; i < arr.length - 1; i++) {
-                if (arr[i].equals(contact)) {
+                if (arr[i][0].equals(contact)) {
                     index = i;
                 }
             }     // end of for loop
@@ -85,11 +101,14 @@ class ContactApp{
                 if (i == index) {
                     continue;
                 }
-                newArray[k++] = arr[i];
+                    newArray[k][0] = arr[i][0];
+                    newArray[k][1] = arr[i][1];
+                    k++;
             }     // end of for loop
-            newArray[newArray.length - 1] = arr[arr.length - 1];
+            newArray[newArray.length - 1][0] = arr[arr.length - 1][0];
+            newArray[newArray.length - 1][1] = arr[arr.length - 1][1];
         }
-        System.out.println(contact+" deleted in list");
+        System.out.println(contact+" deleted from list");
         return newArray;
     }      // end of deleteContacts()
 
@@ -99,7 +118,7 @@ public class Task_01 {
     public static void main(String[] args) {
 
 
-        String [] contacts = {"Asad", "Awais", "Junaid", " Sir Mohsin", "Abbas", "Uzair Hussain", "Hassan", "Waryal"};
+        String [][] contacts = {{"Asad", "+924567891237"}, {"Awais", "+924512345789"}, {"Junaid", "+924513687002"}, {"Sir Mohsin", "+9245136789010"}, {"Abbas", "+924123678410"}, {"Uzair Hussain", "+921345689698"}, {"Hassan", "+928746555445"}, {"Waryal", "+924513789456"}};
         ContactApp ca = new ContactApp();
 
         Scanner sc = new Scanner(System.in);
@@ -119,26 +138,6 @@ public class Task_01 {
             }
         } while (choice!=0);
 
-//
-//        // Display Contacts
-//        ca.displayContacts(contacts);
-//
-//        // Search Contacts
-//        ca.searchContact(contacts, "Sir Mohsin");
-//
-//        // Add contacts
-//        contacts = ca.addContact(contacts,"Sir Naeem");
-//        contacts = ca.addContact(contacts,"Kamran");
-//        ca.displayContacts(contacts);
-//
-//        //  update contacts
-//        ca.updateContact(contacts);
-//        ca.displayContacts(contacts);
-//
-//        // Delete contacts
-//        contacts = ca.deleteContact(contacts,  "Mohsin");
-//        contacts = ca.deleteContact(contacts,  "Kamran");
-//        contacts = ca.deleteContact(contacts,  "Asad");
-//        ca.displayContacts(contacts);
+
     }
 }

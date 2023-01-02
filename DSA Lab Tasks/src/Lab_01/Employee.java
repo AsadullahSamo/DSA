@@ -1,6 +1,4 @@
-package Lab_01;
 
-//primitive variables
 public class Employee {
 
     public static void main(String[] args) {

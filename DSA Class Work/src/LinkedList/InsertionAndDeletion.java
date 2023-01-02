@@ -27,28 +27,28 @@ public class InsertionAndDeletion {
     }      // end of displayList() method
 
     // Insertion in between first and last node (Prerequisite: Sorted List)
-//    public static void insert(Node start, int x){
-//        Node p = start;
-//        while (p.next!=null){
-//            if (p.next.data>x){
-//                break;
-//            }
-//            p = p.next;     // Update Condition of while loop
-//        }      // end of while loop
-//        Node q = new Node(x);
-//        q.next = p.next;
-//        p.next = q;
-//    }      // end of insert
+    public static void insert(Node start, int x){
+        Node p = start;
+        while (p.next!=null){
+            if (p.next.data>x){
+                break;
+            }
+            p = p.next;     // Update Condition of while loop
+        }      // end of while loop
+        Node q = new Node(x);
+        q.next = p.next;
+        p.next = q;
+    }      // end of insert
 
     // Insertion before first (if target<first || list is null)  (Prerequisite: Sorted List)
-    public static Node insert(Node start, int x){
-        Node p = start;
-        if (start==null || start.data>x) {
-            start = new Node(x);
-            start.next = p;
-        }
-        return start;
-    }
+//    public static Node insert(Node start, int x){
+//        Node p = start;
+//        if (start==null || start.data>x) {
+//            start = new Node(x);
+//            start.next = p;
+//        }
+//        return start;
+//    }
 
     // Delete Node from LL
     public static Node delete(Node start, int x){
@@ -83,15 +83,15 @@ public class InsertionAndDeletion {
         p = p.next;
 
         displayList(start);
-        Node a = insert(start, 2);
-//        insert(start, 7);
-//        insert(start, 5);
-//        insert(start, 6);
-        displayList(a);
+        insert(start, 2);
+        insert(start, 7);
+        insert(start, 5);
+        insert(start, 6);
+        displayList(start);
 //        displayList(start);
 
         delete(start, 6);
         delete(start, 8);
-        displayList(a);
+//        displayList(a);
     }       // end of main() method
 }          //  end of program
