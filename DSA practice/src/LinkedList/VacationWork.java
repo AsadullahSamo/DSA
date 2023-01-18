@@ -86,6 +86,18 @@ public class VacationWork {
             q.next = new Node2(p.str, occurences);
             q = q.next;
         }
+
+//        //         Remove Duplicates
+//        for (q = start; q!=null; q=q.next){
+//            Node2 s = q;
+//            while (s.next!=null){
+//                if (s.next.str.equals(q.str)){
+//                    s.next = s.next.next;
+//                }
+//                s = s.next;
+//            }
+//        }
+
         display(start.next);
 
 
@@ -94,16 +106,6 @@ public class VacationWork {
 
 //        display(head);
 
-        // Remove Duplicates
-//        for (p = head; p!=null; p=p.next){
-//            Node s = p;
-//            while (s.next!=null){
-//                if (s.next.str.equals(p.str)){
-//                    s.next = s.next.next;
-//                }
-//                s = s.next;
-//            }
-//        }
 
 
 
