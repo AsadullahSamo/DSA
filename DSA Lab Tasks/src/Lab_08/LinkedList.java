@@ -1,4 +1,4 @@
-package Lab_06;
+package Lab_07;
 
 public class LinkedList{
     class Node{
