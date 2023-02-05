@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Resize {
 
-    public static int[] resie(int [] arr, int n){
+    public static int[] resize(int [] arr, int n){
         if (n<=arr.length){
             throw new IllegalArgumentException();
         }
@@ -16,7 +16,7 @@ public class Resize {
     public static void main(String[] args) {
 
         int [] arr = {1, 4, 6, 9, 6, 8, 78};
-        System.out.println(Arrays.toString(resie(arr, 10)));
+        System.out.println(Arrays.toString(resize(arr, 10)));
 
     }       // end of main() method
 }          //  end of program

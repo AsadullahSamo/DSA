@@ -1,2 +1,2 @@
-Arrays: 15
+Arrays: 32
 LinkedList: 16

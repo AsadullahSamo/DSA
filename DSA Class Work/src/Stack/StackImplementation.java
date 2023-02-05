@@ -3,13 +3,7 @@
  */
 package Stack;
 
-interface Stack{
-    void push(Object stack);
-     Object pop();
-     Object peek();
-}       // end of interface Stack
-
-class ArrayStack implements Stack{
+class ArrayStack{
     private int size = 0;
     private Object [] arr;
 
@@ -25,7 +19,7 @@ class ArrayStack implements Stack{
         arr[size++] = stack;
     }    // end of push() method
 
-    @Override
+
     public Object pop() {
         if (size==0){
             throw new IllegalStateException();
@@ -35,7 +29,7 @@ class ArrayStack implements Stack{
         return obj;
     }       // end of pop() method
 
-    @Override
+
     public Object peek() {
         if(size==0){
             throw new IllegalStateException();
