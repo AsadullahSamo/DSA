@@ -40,7 +40,7 @@ public class Queue {
             return temp;
         }
         public void add(Object obj){
-            head.prev.next = new Node(obj);
+            head.prev.next = new Node(obj, head, head.prev);
             head.prev = head.prev.next;
             size++;
         }

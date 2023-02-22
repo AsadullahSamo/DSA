@@ -1,3 +1,6 @@
 Final Prices With Special Discount
 Valid Parentheses
 Number of Students Unable to eat
+Design Stack With Increment Operation
+Construct Smallest Number From DI String
+REmove Nodes From LL
