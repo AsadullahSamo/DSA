@@ -1,12 +1,13 @@
 import eu.bitm.NominatimReverseGeocoding.Address;
 import eu.bitm.NominatimReverseGeocoding.NominatimReverseGeocodingJAPI;
+
+import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Project {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-//
+
         NominatimReverseGeocodingJAPI nominatim1 = new NominatimReverseGeocodingJAPI();
         Address address;
 
@@ -14,57 +15,86 @@ public class Project {
         String uname = "root";
         String pass = "asad56@mysql.com";
 
-        String query = "SELECT * FROM clone_earthquake WHERE col_num > 3097\n" +
-                        "LIMIT 2000;";
+
+        String query = "SELECT * FROM clone_earthquake2";
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection com = DriverManager.getConnection(url, uname, pass);
         Statement st = com.createStatement();
         ResultSet rs = st.executeQuery(query);
 
+        HashMap<Double, ArrayList<String>>[] year = new HashMap[52];
+        for (int i=0; i<52; i++){
+            year[i] = new HashMap<>();
+        }
 
-        // Fetch the whole table
-        int i = 0;
-        ArrayList<String> arrayList3 = new ArrayList<>();
-        ArrayList<String> arrayList5 = new ArrayList<>();
+
+        ArrayList<String> dates = new ArrayList<>();
+        int j = 0;
+        while(rs.next()) {
+            String date = rs.getString("Date");
+            date = date.substring(date.length() - 2);
+            dates.add(date);
+        }
+
+        int l = 0;
+        rs = st.executeQuery(query);
         while(rs.next()) {
             double lat = rs.getDouble("latitude");
             double lon = rs.getDouble("longitude");
-
+            double magnitude = rs.getDouble("Magnitude");
+            int colNum = rs.getInt("col_num");
             address = nominatim1.getAdress(lat, lon);
             String country = "", city = "";
             if(address!=null) {
                 country = address.getCountry();
                 city = address.getCity();
             }
-            arrayList3.add(city);
-            arrayList5.add(country);
+
+            if (l<1103) {
+                if (!dates.get(l).equals(dates.get(l + 1))) {
+                    j++;
+//                  System.out.println("j is "+j+ " and l is "+l);
+                }
+            }
+            l++;
+            year[j].computeIfAbsent(magnitude, k -> new ArrayList<>()).add(country.concat(": "+city));     // k -> new ArrayList<> is mapping function as specified in documentation
         }     // end of while loop
         st.close();
         com.close();
 
+//        System.out.println(year[0]);
+//        System.out.println("Size is "+year[0].size());
+        System.out.println(year[2].get(5.8));
+//        System.out.println(dates);
 
-        ArrayList<String> arrayList4 = new ArrayList<>();
-
-        for (i=0; i<arrayList3.size(); i++){
-            if (!arrayList3.get(i).equals("") && !arrayList5.get(i).equals("")){
-                arrayList4.add(arrayList3.get(i) +" , "+ arrayList5.get(i)+" "+(i+3098));
-            }
-        }
-
-
-//        for (i=0; i<arrayList3.size(); i++){
-//            System.out.println(arrayList3.get(i) + " i is  "+i+197);
+//        try {
+//            FileOutputStream fos = new FileOutputStream("E:\\DSA\\DSA Project\\src\\hashmap.txt");
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            for (int i=0; i< year.length; i++) {
+//                oos.writeObject(year[i]);
+//            }
+//            oos.close();
+//            fos.close();
+//            System.out.println("HashMap saved to hashmap.ser file.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
 //        }
-        System.out.println(arrayList3);
-        System.out.println(arrayList5);
-        System.out.println(arrayList4);
 
 
-//        address = nominatim1.getAdress(27.357, 87.867);
-//        String country = address.getCountry();
-//        String city = address.getCity();
-//        System.out.println(country);
-//        System.out.println(city);
+
+//        try {
+//            FileInputStream fos = new FileInputStream("E:\\DSA\\DSA Project\\src\\hashmap.txt");
+//            ObjectInputStream oos = new ObjectInputStream(fos);
+//            for (int i=0; i< year.length; i++) {
+//                System.out.println(oos.readObject());
+//            }
+//            oos.close();
+//            fos.close();
+////            System.out.println("HashMap saved to hashmap.ser file.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
 
     }   // end of main()
 }     // end of program
