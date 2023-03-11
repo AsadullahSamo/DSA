@@ -3,79 +3,28 @@ import java.sql.*;
 import java.util.*;
 
 public class Project {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 
 
-        //      Step 1: Read from file and store in HashMap Array along with key-value pair
-//        HashMap<Double, String>[] pairHash = new HashMap[52];
-//        for (int i = 0; i < pairHash.length; i++) {
-//            pairHash[i] = new HashMap<>();
-//        }
-//        StringBuilder str = new StringBuilder("");
-//        try {
-//            File file = new File("E:\\DSA\\DSA Project\\src\\Files\\buffered.txt");
-//            FileReader reader = new FileReader(file);
-//
-//            int character;
-//            double key = 0.0;
-//            String value = "";
-//
-//            int i = 0;
-//            while ((character = reader.read()) != -1) {
-//                char ch = (char) character;
-//
-//                if (ch == '=') {
-//                    if (String.valueOf(str).contains(", ")) {
-//                        key = Double.parseDouble(str.substring(3));
-//                    } else if (String.valueOf(str).contains("{")) {
-//                        key = Double.parseDouble(str.substring(1));
-//                    }
-//                    str = new StringBuilder("");
-//                } else if (ch == ']') {
-//                    // we used substring(1) to exclude '='
-//                    value = String.valueOf(str.substring(1)).concat("]");
-//                    str = new StringBuilder("");
-//                    pairHash[i].put(key, value);
-//                } else if (ch == '}') {
-//                    i++;
-//                    str = new StringBuilder("");
-//                } else if (ch == '{') {
-//                    str = new StringBuilder("");
-//                }
-//                str = str.append(ch);
-//            }
-//
-//            reader.close();
-//        } catch (IOException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//        System.out.println(pairHash[0]);
-//
-        //      Step 2:  Storing largest magnitude in Queue
-        Queue<String> largestMagnitude = new LinkedList<>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("E:\\DSA\\DSA Project\\src\\Files\\Max Magnitude For Queue.txt"));
+        //     Step 1
+        Step1 step1 = new Step1();
 
-            int c;
-            StringBuilder line = new StringBuilder();
-            while ((c = br.read()) != -1) {
-                if (c == '\n') {
-                    // End of line reached, So add magnitude and country in Queue
-                    largestMagnitude.add(String.valueOf(line));
-                    line.setLength(0); // Reset the line buffer for the next line
-                } else {
-                    // Add the current character to the line buffer
-                    line.append((char) c);
-                }
-            }
-        } catch (IOException ie){
-            ie.printStackTrace();
-        }
+//        step1.getAllCountriesForYear();
 
-        System.out.println(largestMagnitude);
-        System.out.println(largestMagnitude.size());
-//
-//
-//
+        //     Problem 2:     Biggest earthquakes from 2005 to 2015
+        Step2 step2 = new Step2();
+        step2.getLargestMagnitudeForEachCountry();
+
+        //     Problem 3:     Recent five earthquakes
+        Step3 step3 = new Step3();
+        step3.getDetailsOfCountry();
+
+//        int mostVulnerableCountry = step3.mostNumberOfEarthquakes();
+//        System.out.println(mostVulnerableCountry);
+
+        //     Problem 4:
+//        Step4 step4 = new Step4();
+//        step4.getRecentEvent();
+
     }     // end of main()
 }       // end of program

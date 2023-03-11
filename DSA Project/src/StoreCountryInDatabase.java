@@ -9,7 +9,7 @@ public class StoreCountryInDatabase{
 
         String url = "jdbc:mysql://localhost:3306/dsa_pbl";       // where last jdbc is Database name in MySQL
         String uname = "root";
-        String pass = "asad56@mysql.com";
+        String pass = "pass";
 
 
         String query = "SELECT * FROM earthquake WHERE Date LIKE '%2016%'";
@@ -28,18 +28,18 @@ public class StoreCountryInDatabase{
 
             if (address!=null) {
                 country = address.getCountry();
-//            String city = address.getCity();
+
             }
             String update;
-            if(country.contains("'")){
+            if(country.contains("'")){     // if country contains '
                 update = "INSERT INTO temp(Date) VALUES('" + date + "') ";
                 st = com.createStatement();
                 st.executeUpdate(update);
                 continue;
-            }
+            }          // if country is not unable to geocode
             if (!country.equals("")){
                 update = "INSERT INTO temp(country, Date) VALUES('" + country + "', '" + date + "') ";
-            } else {
+            } else {       // if unable to geocode, just insert date value
                 update = "INSERT INTO temp(Date) VALUES('" + date + "') ";
             }
             st = com.createStatement();
