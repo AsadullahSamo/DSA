@@ -1,6 +1,3 @@
-import eu.bitm.NominatimReverseGeocoding.Address;
-import eu.bitm.NominatimReverseGeocoding.NominatimReverseGeocodingJAPI;
-
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -8,93 +5,77 @@ import java.util.*;
 public class Project {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-        NominatimReverseGeocodingJAPI nominatim1 = new NominatimReverseGeocodingJAPI();
-        Address address;
 
-        String url = "jdbc:mysql://localhost:3306/dsa_pbl";       // where last jdbc is Database name in MySQL
-        String uname = "root";
-        String pass = "asad56@mysql.com";
+        //      Step 1: Read from file and store in HashMap Array along with key-value pair
+//        HashMap<Double, String>[] pairHash = new HashMap[52];
+//        for (int i = 0; i < pairHash.length; i++) {
+//            pairHash[i] = new HashMap<>();
+//        }
+//        StringBuilder str = new StringBuilder("");
+//        try {
+//            File file = new File("E:\\DSA\\DSA Project\\src\\Files\\buffered.txt");
+//            FileReader reader = new FileReader(file);
+//
+//            int character;
+//            double key = 0.0;
+//            String value = "";
+//
+//            int i = 0;
+//            while ((character = reader.read()) != -1) {
+//                char ch = (char) character;
+//
+//                if (ch == '=') {
+//                    if (String.valueOf(str).contains(", ")) {
+//                        key = Double.parseDouble(str.substring(3));
+//                    } else if (String.valueOf(str).contains("{")) {
+//                        key = Double.parseDouble(str.substring(1));
+//                    }
+//                    str = new StringBuilder("");
+//                } else if (ch == ']') {
+//                    // we used substring(1) to exclude '='
+//                    value = String.valueOf(str.substring(1)).concat("]");
+//                    str = new StringBuilder("");
+//                    pairHash[i].put(key, value);
+//                } else if (ch == '}') {
+//                    i++;
+//                    str = new StringBuilder("");
+//                } else if (ch == '{') {
+//                    str = new StringBuilder("");
+//                }
+//                str = str.append(ch);
+//            }
+//
+//            reader.close();
+//        } catch (IOException ex) {
+//            throw new RuntimeException(ex);
+//        }
+//        System.out.println(pairHash[0]);
+//
+        //      Step 2:  Storing largest magnitude in Queue
+        Queue<String> largestMagnitude = new LinkedList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("E:\\DSA\\DSA Project\\src\\Files\\Max Magnitude For Queue.txt"));
 
-
-        String query = "SELECT * FROM clone_earthquake2";
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection com = DriverManager.getConnection(url, uname, pass);
-        Statement st = com.createStatement();
-        ResultSet rs = st.executeQuery(query);
-
-        HashMap<Double, ArrayList<String>>[] year = new HashMap[52];
-        for (int i=0; i<52; i++){
-            year[i] = new HashMap<>();
-        }
-
-
-        ArrayList<String> dates = new ArrayList<>();
-        int j = 0;
-        while(rs.next()) {
-            String date = rs.getString("Date");
-            date = date.substring(date.length() - 2);
-            dates.add(date);
-        }
-
-        int l = 0;
-        rs = st.executeQuery(query);
-        while(rs.next()) {
-            double lat = rs.getDouble("latitude");
-            double lon = rs.getDouble("longitude");
-            double magnitude = rs.getDouble("Magnitude");
-            int colNum = rs.getInt("col_num");
-            address = nominatim1.getAdress(lat, lon);
-            String country = "", city = "";
-            if(address!=null) {
-                country = address.getCountry();
-                city = address.getCity();
-            }
-
-            if (l<1103) {
-                if (!dates.get(l).equals(dates.get(l + 1))) {
-                    j++;
-//                  System.out.println("j is "+j+ " and l is "+l);
+            int c;
+            StringBuilder line = new StringBuilder();
+            while ((c = br.read()) != -1) {
+                if (c == '\n') {
+                    // End of line reached, So add magnitude and country in Queue
+                    largestMagnitude.add(String.valueOf(line));
+                    line.setLength(0); // Reset the line buffer for the next line
+                } else {
+                    // Add the current character to the line buffer
+                    line.append((char) c);
                 }
             }
-            l++;
-            year[j].computeIfAbsent(magnitude, k -> new ArrayList<>()).add(country.concat(": "+city));     // k -> new ArrayList<> is mapping function as specified in documentation
-        }     // end of while loop
-        st.close();
-        com.close();
+        } catch (IOException ie){
+            ie.printStackTrace();
+        }
 
-//        System.out.println(year[0]);
-//        System.out.println("Size is "+year[0].size());
-        System.out.println(year[2].get(5.8));
-//        System.out.println(dates);
-
-//        try {
-//            FileOutputStream fos = new FileOutputStream("E:\\DSA\\DSA Project\\src\\hashmap.txt");
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            for (int i=0; i< year.length; i++) {
-//                oos.writeObject(year[i]);
-//            }
-//            oos.close();
-//            fos.close();
-//            System.out.println("HashMap saved to hashmap.ser file.");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-
-//        try {
-//            FileInputStream fos = new FileInputStream("E:\\DSA\\DSA Project\\src\\hashmap.txt");
-//            ObjectInputStream oos = new ObjectInputStream(fos);
-//            for (int i=0; i< year.length; i++) {
-//                System.out.println(oos.readObject());
-//            }
-//            oos.close();
-//            fos.close();
-////            System.out.println("HashMap saved to hashmap.ser file.");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-    }   // end of main()
-}     // end of program
+        System.out.println(largestMagnitude);
+        System.out.println(largestMagnitude.size());
+//
+//
+//
+    }     // end of main()
+}       // end of program

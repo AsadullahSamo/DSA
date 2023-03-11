@@ -24,6 +24,10 @@ public class BT {
         return right;
     }
 
+    public boolean isLeaf(){
+        return (this.left==null && this.right==null);
+    }
+
     public String inOrder(){      // Left Root Right
         StringBuffer stringBuffer = new StringBuffer();
         if (left!=null)
@@ -66,58 +70,93 @@ public class BT {
         }
         return arrayList;
     }    // end of getArrayList()
-    public boolean search(Object node){
-        ArrayList<Object> arrayList = getArrayList();
-        for (int i=0; i<arrayList.size(); i++) {
-            if (arrayList.get(i)==node){
-                return true;
-            }
+    public boolean search(Object value) {
+        boolean inLeft = false, inRight = false;
+        if (root == null){
+            return false;
+        }
+        if (root.equals(value)){
+            return true;
+        }
+        if (left!=null) {
+            inLeft = left.search(value);
+        }
+        if (right!=null) {
+            inRight = right.search(value);
+        }
+        if (inLeft || inRight){
+            return true;
         }
         return false;
-    }    // end of search
-    public int size(){
-        ArrayList<Object> arrayList = getArrayList();
-        return arrayList.size();
     }
-
-//    public boolean isFull(BT root){
-//        //2^(h+1) - 1
-//        int nodes=1;
-//        int t = height(root) + 1;
-////        System.out.println("t" + t)
-//        for(int i=0;i<t;i++){
-//            nodes*=2;
-//        }
-//        nodes--;
-//
-////        System.out.println("Nodes" + nodes);
-//        if(size()==nodes){
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }     // end of isFull()
-    public int height(BT root){
-        if(size()==1){
+    public int sum(){
+        int sum = 0;
+        if (root==null){
             return 0;
         }
-        BT  temp = root;
-        int leftSubtreeSize = 0, rightSubtreeSize = 0;
-        while (root.getLeft()!=null){
-            leftSubtreeSize++;
-            root = root.getLeft();
+        if (left==null && right==null){
+            return (int) root;
         }
-        while (temp.getRight()!=null){
-            rightSubtreeSize++;
-            temp = temp.getRight();
+        if (left!=null){
+            sum += left.sum();
         }
-        return Math.max(leftSubtreeSize, rightSubtreeSize);
+        if (right!=null){
+            sum += right.sum();
+        }
+        return sum;
+    }       // end of sum() method
+    public int size(){
+        int size = 1;
+        if (root==null){
+            return 0;
+        }
+        if (left!=null) {
+            size += left.size();
+        }
+        if (right!=null){
+            size += right.size();
+        }
+        return size;
+    }
+//    public int sum(){
+//        if (root==null){
+//            return 0;
+//        }
+//        int sum = (int)root;
+//        if (left==null && right==null){
+//            return (int) root;
+//        }
+//        if (left!=null){
+//            sum += left.sum();
+//        }
+//        if (right!=null){
+//            sum += right.sum();
+//        }
+//        return sum;
+//    }
+    public int height(){
+        int leftSubtree = 1, rightSubtree = 1;
+        if (root==null){
+            return 0;
+        }
+        if (left==null && right ==null){
+            return 0;
+        }
+        if (left!=null){
+            leftSubtree += left.height();
+        }
+        if (right!=null){
+            rightSubtree += right.height();
+        }
+        return Math.max(leftSubtree, rightSubtree);
     }        // end of height
 
     public static void main(String[] args) {
 
-        BT t1 = new BT('D');
+        BT t7 = new BT('H');
+        BT t1 = new BT('D', t7, null);
+
+
         BT t2 = new BT('E');
         BT t3 = new BT('B', t1, t2);
 
@@ -127,7 +166,6 @@ public class BT {
 
         BT t6 = new BT('A', t3, t5);
 
-
         // Inorder
         System.out.println("Inorder: " + t6.inOrder());
         // Preorder
@@ -135,15 +173,18 @@ public class BT {
         // Postorder
         System.out.println("Postorder: " + t6.postOrder());
 
-        System.out.println("Left node of B is "+t6.getLeft().getLeft().preOrder());
+        System.out.println("Left node of B is "+t3.getLeft().root);
 
-        System.out.println(t6.search('D'));
+        System.out.println("D is in tree? " + t6.search('D'));
 
-        System.out.println(t6.search('G'));
+        System.out.println("G is in tree? " + t6.search('G'));
+        System.out.println("H is in tree? " + t6.search('H'));
         System.out.println("Size of tree is "+t6.size());
 
-        System.out.println("Height of tree is "+t6.height(t6));
+        System.out.println("Height of tree is "+t6.height());
 
+        System.out.println("B is leaf? "+t3.isLeaf());
+        System.out.println("E is leaf? "+t2.isLeaf());
 
 
 
