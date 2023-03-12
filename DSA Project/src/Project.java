@@ -6,26 +6,42 @@ public class Project {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 
 
-        //     Step 1
+        //     Step 01:  Store county, city and magnitude for each year
         Step1 step1 = new Step1();
-        step1.getAllCountriesForYear();
+        // step1.getAllCountriesForYear();
 
-//        step1.getAllCountriesForYear();
 
-        //     Problem 2:     Biggest earthquakes from 2005 to 2015
+        //     Step 02:     Biggest earthquakes from 1965 to 2016
         Step2 step2 = new Step2();
-        step2.getLargestMagnitudeForEachCountry();
+//        step2.getLargestMagnitudeForEachCountry();
 
-        //     Problem 3:     Recent five earthquakes
+
+        //     Step 03:  All events of a particular country from 1965 to 2015 (recent on top)
         Step3 step3 = new Step3();
 //        step3.getDetailsOfCountry();
 
-//        int mostVulnerableCountry = step3.mostNumberOfEarthquakes();
-//        System.out.println(mostVulnerableCountry);
 
-        //     Problem 4:
-//        Step4 step4 = new Step4();
-//        step4.getRecentEvent();
+        //     Step 04:  Store recent event from each country
+        Step4 step4 = new Step4();
+//        step4.getRecentEventForEachCountry();
+
+
+        // Problem 01: Average number of earthquakes and most vulnerable countries
+//        step1.getEarthquakesForACountry();        // Average number of earthquakes for a country
+//        System.out.println("with earthquakes " + step3.mostNumberOfEarthquakes());
+
+
+        // Problem 2:    Biggest earthquakes from 2005 to 2015
+//        step2.getLargestMagnitudeForListOfCountries();
+
+
+        // Problem 3:    Recent n earthquakes for a given country
+//        step3.getNRecentEarthqakesForEachCountry();
+
+
+        // Problem 04:  Recent earthquakes for a particular magnitude
+        step4.getEarthquakesForParticularMagnitudeRange();
+
 
     }     // end of main()
 }       // end of program

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Step1 {
+class Step1 {
 
     public ArrayList<String>[] getArrayList(){
         ArrayList<String>[] arrayList = new ArrayList[53];
@@ -20,31 +20,32 @@ public class Step1 {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\DSA\\DSA Project\\src\\Files\\Yearly Earthquake.txt"), StandardCharsets.UTF_8));
             String line;
             while ((line = br.readLine())!=null){
-                String [] array = line.split(", ");
+                String [] array = line.split(", ");       // if , is encountered split it
                 if (index==52){
                     break;
                 }
                 for (int i=0; i< array.length; i++) {
-                    arrayList[index].add(array[i]);
+                    arrayList[index].add(array[i]);       // add every element of array to arrayList[index]
                 }
-                index++;
+                index++;                                // when line ends, change index to new object
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         return arrayList;
-    }      // end of method
+    }      // end of getArrayList() method
 
     public void getAllCountriesForYear(){
         ArrayList<String>[] arrayList = getArrayList();
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the year to get all countries with cities and magnitude: ");
         int year = sc.nextInt();
-        System.out.println(arrayList[year-1965]);
+        System.out.println(arrayList[year-1965]);            // As the year starts from 1965, and array from 0, so year 1965 gets index 0, 1966 gets index 1 and so on
 
-    }
+    }    // end of getAllCountriesForYear() method
 
+    // to get average number of earthquakes for a country
     public void getEarthquakesForACountry(){
         Scanner sc = new Scanner(System.in);
         ArrayList<String>[] arrayList = getArrayList();
@@ -60,42 +61,10 @@ public class Step1 {
 
         for (int i=0; i<array.length; i++){
             if (array[i].contains(con))
-                System.out.print(array[i]+", ");
+                System.out.print(array[i]+", ");          // Search for country in year
         }
         System.out.println("]");
 
-    }       // end of method
+    }       // end of getEarthquakesForACountry() method
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-
-        ArrayList<String>[] arrayList = new ArrayList[53];
-        for (int i = 0; i < arrayList.length; i++) {
-            arrayList[i] = new ArrayList<>();
-        }
-
-        int index = 0;
-        try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\DSA\\DSA Project\\src\\Files\\Yearly Earthquake.txt"), StandardCharsets.UTF_8));
-            String line;
-            while ((line = br.readLine())!=null){
-                String [] array = line.split(", ");
-                if (index==52){
-                    break;
-                }
-                for (int i=0; i< array.length; i++) {
-                    arrayList[index].add(array[i]);
-                }
-                index++;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(arrayList[0]);
-        System.out.println(arrayList[0].size());
-        System.out.println(arrayList[0].get(1));
-
-
-    }
-}
+}       // end of class Step1
