@@ -27,8 +27,8 @@ public class Project {
 
 
         // Problem 01: Average number of earthquakes and most vulnerable countries
-//        step1.getEarthquakesForACountry();        // Average number of earthquakes for a country
-//        System.out.println("with earthquakes " + step3.mostNumberOfEarthquakes());
+        step1.getEarthquakesForACountry();        // Average number of earthquakes for a country
+        System.out.println("with earthquakes " + step3.mostNumberOfEarthquakes());
 
 
         // Problem 2:    Biggest earthquakes from 2005 to 2015
@@ -40,7 +40,7 @@ public class Project {
 
 
         // Problem 04:  Recent earthquakes for a particular magnitude
-        step4.getEarthquakesForParticularMagnitudeRange();
+//        step4.getEarthquakesForParticularMagnitudeRange();
 
 
     }     // end of main()

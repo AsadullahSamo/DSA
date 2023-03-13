@@ -59,9 +59,11 @@ class Step1 {
         System.out.print("[");
         String [] array = arrayList[year - 1965].toArray(new String[0]);
 
+        int count = 0;
         for (int i=0; i<array.length; i++){
             if (array[i].contains(con))
                 System.out.print(array[i]+", ");          // Search for country in year
+            count++;
         }
         System.out.println("]");
 
