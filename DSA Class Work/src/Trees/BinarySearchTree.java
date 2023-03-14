@@ -30,6 +30,16 @@ class BST{
     public void inOrder(){
         inOrder(root);
     }
+    public Node search(Node root, int val){
+        if (root==null || root.val == val){
+            return root;
+        }
+        if (val < root.val){
+            return search(root.left, val);
+        } else {
+            return search(root.right, val);
+        }
+    }        // end of method search()
     public void inOrder(Node root){
         if (root==null){      // base condition for recursive call
             return;
@@ -60,6 +70,7 @@ public class BinarySearchTree {
         bst.insert(42);
 
         bst.inOrder();
+
 
     }
 }
